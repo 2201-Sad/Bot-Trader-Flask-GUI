@@ -20,7 +20,10 @@ from apps.authentication.util import verify_pass
 
 @blueprint.route('/')
 def route_default():
-    return redirect(url_for('authentication_blueprint.login'))
+    if current_user.is_authenticated:
+        return render_template('home/index-logged-in.html', segment='index')
+    else:
+        return render_template('home/index-logged-out.html', segment='index')
 
 
 # Login & Registration
@@ -95,7 +98,7 @@ def register():
 @blueprint.route('/logout')
 def logout():
     logout_user()
-    return redirect(url_for('authentication_blueprint.login'))
+    return redirect("/")
 
 
 # Errors
