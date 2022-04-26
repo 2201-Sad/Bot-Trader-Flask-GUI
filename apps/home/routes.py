@@ -16,8 +16,13 @@ def index():
     return render_template('home/index.html', segment='index')
 
 
-@blueprint.route('/<template>')
+@blueprint.route('/dashboard')
 @login_required
+def dashboard():
+    return render_template('home/dashboard.html')
+
+
+@blueprint.route('/<template>')
 def route_template(template):
 
     try:

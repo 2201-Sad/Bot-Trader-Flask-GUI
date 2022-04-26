@@ -20,6 +20,9 @@
   .datepicker.active {
     display: block; }
 
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Roboto+Condensed:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+
 .datepicker-dropdown {
   position: absolute;
   top: 0;
@@ -803,12 +806,11 @@
   --bs-gray-900-rgb: 17, 24, 39;
   --bs-white-rgb: 255, 255, 255;
   --bs-black-rgb: 17, 24, 39;
-  --bs-body-color-rgb: 55, 65, 81;
-  --bs-body-bg-rgb: 242, 244, 246;
-  --bs-font-sans-serif: "Inter", sans-serif;
+  --bs-body-rgb: 55, 65, 81;
+  --bs-font-sans-serif: 'Roboto Condensed', sans-serif;
   --bs-font-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
   --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
-  --bs-body-font-family: var(--bs-font-sans-serif);
+  --bs-body-font-family: 'Roboto Condensed', sans-serif;
   --bs-body-font-size: 1rem;
   --bs-body-font-weight: 400;
   --bs-body-line-height: 1.5;
@@ -831,10 +833,12 @@ body {
   font-weight: var(--bs-body-font-weight);
   line-height: var(--bs-body-line-height);
   color: var(--bs-body-color);
+  letter-spacing: 1.5px;
   text-align: var(--bs-body-text-align);
   background-color: var(--bs-body-bg);
   -webkit-text-size-adjust: 100%;
-  -webkit-tap-highlight-color: rgba(17, 24, 39, 0); }
+  -webkit-tap-highlight-color: rgba(17, 24, 39, 0);
+}
 
 hr {
   margin: 1rem 0;
@@ -1269,6 +1273,7 @@ progress {
   padding-left: var(--bs-gutter-x, 1rem);
   margin-right: auto;
   margin-left: auto; }
+
 
 @media (min-width: 576px) {
   .container, .container-sm {
@@ -9104,7 +9109,7 @@ textarea.form-control-lg {
 
 .text-body {
   --bs-text-opacity: 1;
-  color: rgba(var(--bs-body-color-rgb), var(--bs-text-opacity)) !important; }
+  color: rgba(var(--bs-body-rgb), var(--bs-text-opacity)) !important; }
 
 .text-muted {
   --bs-text-opacity: 1;
@@ -9228,7 +9233,7 @@ textarea.form-control-lg {
 
 .bg-body {
   --bs-bg-opacity: 1;
-  background-color: rgba(var(--bs-body-bg-rgb), var(--bs-bg-opacity)) !important; }
+  background-color: rgba(var(--bs-body-rgb), var(--bs-bg-opacity)) !important; }
 
 .bg-transparent {
   --bs-bg-opacity: 1;
@@ -14593,7 +14598,8 @@ textarea.form-control-lg {
     padding-bottom: 6rem; }
   .section-sm {
     padding-top: 3rem;
-    padding-bottom: 3rem; } }
+    padding-bottom: 3rem; }
+}
 
 @media (min-width: 992px) {
   .section {
@@ -18462,8 +18468,8 @@ label {
  */
 h1, .h1, h2, .h2, h3, .h3, h4, .h4, h5, .h5, h6, .h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
-  font-family: "Inter", sans-serif;
-  font-weight: 500; }
+  font-family: 'Roboto', sans-serif;
+}
 
 p, ol li, ul li, .p {
   font-family: var(--bs-font-sans-serif);
@@ -19064,4 +19070,73 @@ article .h1, article .h2, article .h3, article .h4, article .h5, article .h6 {
 .datepicker-dropdown {
   z-index: 9999; }
 
-/*# sourceMappingURL=volt.css.map */
+/* Homepage styles - custom */
+
+.navbar-right {
+  display: flex;
+  justify-content: center;
+  margin-right: 20px;
+}
+
+.navbar-right-links {
+  color: #f0bc74;
+}
+
+.navbar-right-links:hover {
+  color: #f2c689 !important;
+}
+
+h2 span {
+  display: block;
+}
+
+.text-header {
+  font-size: 1rem;
+}
+.homepage-main-image {
+  padding-top: 4rem;
+}
+
+.homepage-intro-text {
+  padding-bottom: 4rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (min-width: 992px) {
+  .homepage-intro-text p {
+    width: 50%;
+  }
+}
+
+.features-section {
+  left: 5%;
+}
+
+.homepage-feature {
+  margin-bottom: 3rem;
+
+}
+
+.homepage-features-image {
+  max-height: 323px;
+  max-width: 70%;
+}
+
+.sticky {
+  position: fixed;
+  padding-top: 0.5rem!important;
+  padding-bottom: 0.5rem!important;
+}
+
+.space-evenly {
+  justify-content: space-evenly;
+}
+
+.section-no-padding {
+  padding: 0 0;
+}
+
