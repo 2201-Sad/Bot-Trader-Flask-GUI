@@ -19140,3 +19140,131 @@ h2 span {
   padding: 0 0;
 }
 
+/* Edit tree page custom styles */
+
+.tree-container {
+  background-color: #F0BC8A;
+  padding: 4rem;
+}
+
+.tree-view {
+  background-color: ghostwhite;
+  width: 65%;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+#tree-elements {
+  background-color: ghostwhite;
+  width: 30%;
+}
+
+.tree-element {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+
+}
+
+.tree-element p {
+  margin: 0;
+}
+
+.tree-element:nth-of-type(even) {
+  background-color: lightblue;
+}
+
+.tree-element:nth-of-type(odd) {
+  background-color: cornflowerblue;
+}
+
+.branch-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-bottom: 0.5rem;
+  padding-left: 2rem;
+}
+
+.branch-data {
+  padding: 0.5rem;
+  background-color: lightsalmon;
+  max-width: 30%;
+}
+.nested {
+  padding-left: 1rem;
+}
+
+.branch-sign {
+  height: 30px;
+  width: 30px;
+  border-left: black 1px solid;
+  border-bottom: black 1px solid;
+}
+
+.mouse-over {
+  background-color: red;
+}
+
+
+
+/* Style the buttons that are used to open and close the accordion panel */
+.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+}
+
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+.active, .accordion:hover {
+  background-color: #ccc;
+}
+
+/* Style the accordion panel. Note: hidden by default */
+.panel {
+  padding: 0 18px;
+  background-color: white;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out;
+}
+
+.children-container {
+  margin-left: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-bottom: 0.5rem;
+}
+
+.branch-info-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin-bottom: 0.5rem;
+}
+
+.edit-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.edit-container p {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.edit-container p:hover {
+  color: green;
+}

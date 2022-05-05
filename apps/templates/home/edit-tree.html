@@ -1,0 +1,39 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+
+{% endblock stylesheets %}
+
+{% block content %}
+<section class="tree-container d-flex flex-row justify-content-between w-100 p-3">
+    <div class="tree-view droppable">
+        <div id="root">
+            <p>Root Branch</p>
+            <p id="root-title">TItle: </p>
+            <p id="root-is-active">Status: </p>
+            <p id="root-created-at">Created at: </p>
+            <p id="root-updated-at">Last Updated: </p>
+            </div>
+
+
+            </div>
+        </div>
+    </div>
+
+    <div id="tree-elements">
+        <div class="tree-element draggable"><p>AND branch</p></div>
+        <div class="tree-element draggable"><p>OR branch</p></div>
+        <div class="tree-element draggable"><p>NOT branch</p></div>
+        <div class="tree-element draggable"><p>SCHEMA branch</p></div>
+    </div>
+</section>
+{% endblock content %}
+
+{% block javascripts %}
+<script type="module" src="/static/assets/js/print-tree.js"></script>
+{% endblock javascripts %}
