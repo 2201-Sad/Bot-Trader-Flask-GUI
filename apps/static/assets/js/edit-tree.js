@@ -100,8 +100,14 @@ function changeDiscriminator(tree, root, branchID, newDiscriminator) {
          }
         for (let child of root["children"]) {
             if (child["id"] === branchID) {
-                console.log(child);
+                if (child["discriminator" === "schema"]) {
+                    child["operation"] = null;
+                    child["discriminant"] = null;
+                    child["schema_path"] = null;
+                }
+
                 child["discriminator"] = newDiscriminator;
+
                 break;
             } else {
                 changeDiscriminator(tree, child, branchID, newDiscriminator)
