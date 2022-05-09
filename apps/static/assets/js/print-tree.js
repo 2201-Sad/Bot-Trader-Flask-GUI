@@ -1,4 +1,5 @@
 import {branchClass} from "./branch-class.js";
+import {editTree} from "./edit-tree.js";
 
 
 export let tree = {
@@ -66,11 +67,12 @@ export let tree = {
     "updatedAt": "Mon, 25 Apr 2022 12:43:57 GMT"
 }
 
-// window.onload = function() {
-//   printTree(tree);
-// };
-//
-// export function printTree(tree) {
+document.querySelector("body").onload = async function() {
+  await printTree(tree);
+  editTree()
+};
+
+export function printTree(tree) {
 
 //showing tree info
     let rootTitle = document.querySelector("#root-title");
@@ -78,16 +80,16 @@ export let tree = {
     let rootCreated = document.getElementById("root-created-at");
     let rootUpdated = document.getElementById("root-updated-at");
 
-    rootTitle.append(tree["title"]);
+    rootTitle.innerText = "Title: " + tree["title"];
 
     if (tree["isActive"]) {
-        rootStatus.append("Active")
+        rootStatus.innerText = "Status: Active";
     } else {
-        rootStatus.append("Not active")
+        rootStatus.innerText = "Status: Not active";
     }
 
-    rootCreated.append(tree["createdAt"])
-    rootUpdated.append(tree["updatedAt"])
+    rootCreated.innerText = "Created on: " + tree["createdAt"];
+    rootUpdated.innerText = "Updated on: " + tree["updatedAt"];
 
 
 // Printing tree
@@ -117,4 +119,4 @@ export let tree = {
             }
         });
     }
-
+}

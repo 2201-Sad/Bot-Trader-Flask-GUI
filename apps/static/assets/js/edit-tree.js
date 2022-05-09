@@ -1,66 +1,58 @@
 import {tree} from "./print-tree.js";
 import {branchClass} from "./branch-class.js";
-// import {printTree} from "./print-tree.js";
+import {printTree} from "./print-tree.js";
 
+export function editTree() {
+    let editButtons = document.querySelectorAll(".edit-button");
+    let discriminatorSelects = document.querySelectorAll(".discriminator-select");
+    console.log(tree);
+    let editedTree = tree
 
-let editButtons = document.querySelectorAll(".edit-button");
-let deleteButtons = document.querySelectorAll(".delete-button");
-let discriminatorSelects = document.querySelectorAll(".discriminator-select");
-let editedTree = tree
-
-//Changing discriminator of the branch
-for (let i = 0; i < discriminatorSelects.length; i++) {
-    let select = discriminatorSelects[i];
-    let branchId = select.classList[1];
-    select.addEventListener("change", changeDiscriminator(editedTree["child"], branchId, select.value));
+    for (let i = 0; i < discriminatorSelects.length; i++) {
+        let select = discriminatorSelects[i];
+        let branchId = select.classList[1];
+        select.addEventListener("change", function() {
+            editedTree = changeDiscriminator(editedTree, editedTree["child"], branchId, select.value);
+            console.log(editedTree);
+        });
 
 }
 
-function changeDiscriminator(root, branchID, newDiscriminator) {
-    if (root["children"].length > 0) {
-        for (let child of root["children"]) {
-            if (child["id"] === branchID) {
-                child.discriminator = newDiscriminator;
+    for (let i = 0; i < editButtons.length; i++) {
+        let button = editButtons[i];
+
+        button.addEventListener("click", function () {
+            let editedInputs = this.parentElement.parentElement.querySelectorAll("input");
+            let editedDropdown = this.parentElement.parentElement.querySelectorAll("select");
+            //if editing is not in progress
+            if (!this.classList.contains("save_button")) {
+                this.classList.add("save_button");
+                changeState(1, this, editedInputs, editedDropdown);
             } else {
-                changeDiscriminator(child, branchID, newDiscriminator)
+                //if editing is in progress - saving the results
+                let editConfirm = confirm("Save the changes?");
+                if (editConfirm === true) {
+
+                    //removing the old tree
+                    let treeView = document.querySelector(".tree-view")
+                    while (treeView.childNodes.length > 1) {
+                        for (let child of treeView.childNodes) {
+                            if (child.id !== "root") {
+                                treeView.removeChild(child);
+                        }
+                     }
+
+                    }
+
+                    // Printing a new tree
+                    printTree(editedTree);
+                    changeState(0, this, editedInputs, editedDropdown);
+                    editTree();
+                }
             }
-        }
+
+        });
     }
-}
-
-
-// Edit - Save buttons
-for (let i = 0; i < editButtons.length; i++) {
-    let button = editButtons[i];
-
-    button.addEventListener("click", function() {
-        let editedInputs = this.parentElement.parentElement.querySelectorAll("input");
-        let editedDropdown = this.parentElement.parentElement.querySelectorAll("select");
-        //if editing is not in progress
-        if (!this.classList.contains("save_button")) {
-            this.classList.add("save_button");
-            changeState (1, this, editedInputs, editedDropdown);
-        } else {
-        //if editing is in progress - saving the results
-            let editConfirm = confirm("Save the changes?");
-            if (editConfirm === true) {
-
-                // Printing tree
-                let treeView = document.querySelector(".tree-view")
-                let root = new branchClass(editedTree["child"]["discriminant"],
-                editedTree["child"]["discriminator"],
-                editedTree["child"]["id"],
-                editedTree["child"]["operation"],
-                editedTree["child"]["schema_path"],
-                editedTree["child"]["children"]);
-
-                root.printBranch(treeView);
-                root.printChildren();
-                changeState(0, this, editedInputs, editedDropdown);
-            }
-        }
-
-    });
 }
 
 
@@ -91,9 +83,30 @@ function changeState(toState, button, inputs, dropdowns) {
         branchSelect.disabled = states[toState]["inputsDisabled"];
     }
 
-    if (toState == 0) {
+    if (toState === 0) {
         button.classList.remove("save_button");
-    } else if (toState == 1) {
+    } else if (toState === 1) {
         button.classList.add("save_button");
     }
+}
+
+function changeDiscriminator(tree, root, branchID, newDiscriminator) {
+    console.log("function triggered")
+
+    if (root["children"].length > 0) {
+         if (root["id"] === branchID) {
+                root["discriminator"] = newDiscriminator;
+                return tree;
+         }
+        for (let child of root["children"]) {
+            if (child["id"] === branchID) {
+                console.log(child);
+                child["discriminator"] = newDiscriminator;
+                break;
+            } else {
+                changeDiscriminator(tree, child, branchID, newDiscriminator)
+            }
+        }
+    }
+    return tree;
 }
