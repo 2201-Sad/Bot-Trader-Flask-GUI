@@ -115,7 +115,7 @@ export class branchClass {
         editButton.innerText = "Edit branch";
         let deleteButton = document.createElement("p");
         deleteButton.innerText = "Delete branch";
-        deleteButton.classList.add("delete-button");
+        deleteButton.classList.add("delete-button", this.id);
         editContainer.append(editButton);
         editContainer.append(deleteButton);
         branchInfo.append(editContainer);

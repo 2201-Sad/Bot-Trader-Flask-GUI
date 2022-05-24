@@ -1,5 +1,4 @@
 import {tree} from "./print-tree.js";
-import {branchClass} from "./branch-class.js";
 import {printTree} from "./print-tree.js";
 
 export function editTree() {
@@ -8,6 +7,7 @@ export function editTree() {
     console.log(tree);
     let editedTree = tree
 
+    //changing discriminator
     for (let i = 0; i < discriminatorSelects.length; i++) {
         let select = discriminatorSelects[i];
         let branchId = select.classList[1];
@@ -18,6 +18,19 @@ export function editTree() {
 
 }
 
+    //deleting the branch
+    let deleteButtons = document.querySelectorAll(".delete-button");
+    console.log(deleteButtons)
+    for (let i = 0; i < deleteButtons.length; i++) {
+        let button = deleteButtons[i];
+        button.addEventListener("click", function() {
+            let branchId = button.classList[1];
+            console.log("branch id")
+            deleteBranch(editedTree, editedTree["child"], branchId);
+        })
+    }
+
+    //when edit/save button is pressed
     for (let i = 0; i < editButtons.length; i++) {
         let button = editButtons[i];
 
@@ -32,9 +45,18 @@ export function editTree() {
                 //if editing is in progress - saving the results
                 let editConfirm = confirm("Save the changes?");
                 if (editConfirm === true) {
-
-                    //removing the old tree
                     let treeView = document.querySelector(".tree-view")
+                    removeAndPrint(treeView, editedTree);
+                }
+            }
+
+        });
+    }
+}
+
+
+function removeAndPrint(treeView, newTree) {
+    //removing the old tree
                     while (treeView.childNodes.length > 1) {
                         for (let child of treeView.childNodes) {
                             if (child.id !== "root") {
@@ -45,16 +67,9 @@ export function editTree() {
                     }
 
                     // Printing a new tree
-                    printTree(editedTree);
-                    changeState(0, this, editedInputs, editedDropdown);
+                    printTree(newTree);
                     editTree();
-                }
-            }
-
-        });
-    }
 }
-
 
 function changeState(toState, button, inputs, dropdowns) {
     let states = [
@@ -115,4 +130,25 @@ function changeDiscriminator(tree, root, branchID, newDiscriminator) {
         }
     }
     return tree;
+}
+
+function deleteBranch(tree, root, branchID) {
+    console.log("function triggered")
+    if (root["children"].length > 0) {
+         if (root["id"] === branchID) {
+                root["discriminator"] = newDiscriminator;
+                return tree;
+         }
+        for (let child of root["children"]) {
+            if (child["id"] === branchID) {
+                let childIndex = root["children"].indexOf(child);
+                root["children"].splice(childIndex, 1);
+                let treeView = document.querySelector(".tree-view")
+                removeAndPrint(treeView, tree);
+                break;
+            } else {
+                deleteBranch(tree, child, branchID)
+            }
+        }
+    }
 }

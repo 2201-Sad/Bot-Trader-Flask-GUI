@@ -13,7 +13,6 @@
 <section class="tree-container d-flex flex-row justify-content-between w-100 p-3">
     <div class="tree-view droppable">
         <div id="root">
-            <p>Root Branch</p>
             <p id="root-title">TItle: </p>
             <p id="root-is-active">Status: </p>
             <p id="root-created-at">Created at: </p>
@@ -25,11 +24,8 @@
         </div>
     </div>
 
-    <div id="tree-elements">
-        <div class="tree-element draggable"><p>AND branch</p></div>
-        <div class="tree-element draggable"><p>OR branch</p></div>
-        <div class="tree-element draggable"><p>NOT branch</p></div>
-        <div class="tree-element draggable"><p>SCHEMA branch</p></div>
+    <div id="tree-actions">
+        <div class=""><p>AND branch</p></div>
     </div>
 </section>
 {% endblock content %}
@@ -37,5 +33,6 @@
 {% block javascripts %}
 <script type="module" src="/static/assets/js/print-tree.js"></script>
 <script type="module" src="/static/assets/js/edit-tree.js"></script>
+<script type="module" src="/static/assets/js/drag-drop.js"></script>
 
 {% endblock javascripts %}
