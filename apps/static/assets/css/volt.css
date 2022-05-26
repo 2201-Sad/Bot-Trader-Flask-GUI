@@ -19149,7 +19149,7 @@ h2 span {
 
 .tree-view {
   background-color: ghostwhite;
-  width: 65%;
+  width: 100%;
   padding: 0.5rem;
   display: flex;
   flex-direction: column;
