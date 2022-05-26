@@ -25,9 +25,16 @@ export function editTree() {
         let button = deleteButtons[i];
         button.addEventListener("click", function () {
             let branchId = button.classList[1];
-            let editConfirm = confirm("Delete the branch with all children?");
-            if (editConfirm === true) {
-                deleteBranch(editedTree, editedTree["child"], branchId);
+            if(branchId === editedTree["child"]["id"]) {
+                let deleteTreeConfirm = confirm("Would you like to delete the tree?");
+                if (deleteTreeConfirm === true) {
+                    deleteTree(editedTree["id"]);
+                    }
+                } else {
+                let deleteBranchConfirm = confirm("Delete the branch with all children?");
+                if (deleteBranchConfirm === true) {
+                    deleteBranch(editedTree, editedTree["child"], branchId);
+                }
             }
         })
     }
@@ -183,7 +190,6 @@ function saveBranch(tree, root, branchID, editedInputs, editedDropdowns) {
 // }
 
 function deleteBranch(tree, root, branchID) {
-    console.log("function triggered")
     if (root["children"].length > 0) {
          if (root["id"] === branchID) {
                 root["discriminator"] = newDiscriminator;
@@ -200,4 +206,8 @@ function deleteBranch(tree, root, branchID) {
                 deleteBranch(tree, child, branchID)
             }
         }}
+}
+
+function deleteTree(treeTitle) {
+    console.log(treeTitle + " is deleted")
 }
