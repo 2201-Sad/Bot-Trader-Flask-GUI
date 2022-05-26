@@ -106,8 +106,7 @@ export class branchClass {
             branchInfo.append(schemaContainer);
         }
 
-        //buttons to edit and delete a branch
-
+        //buttons to edit and delete a branch, and add new branch
         let editContainer = document.createElement("div");
         editContainer.classList.add("edit-container");
         let editButton = document.createElement("p");
@@ -116,8 +115,12 @@ export class branchClass {
         let deleteButton = document.createElement("p");
         deleteButton.innerText = "Delete branch";
         deleteButton.classList.add("delete-button", this.id);
+        let addButton = document.createElement("p");
+        addButton.innerText = "Add child";
+        addButton.classList.add("add-button", this.id);
         editContainer.append(editButton);
         editContainer.append(deleteButton);
+        editContainer.append(addButton);
         branchInfo.append(editContainer);
         branchInfo.classList.add("panel");
         branchDataContainer.append(branchInfo);

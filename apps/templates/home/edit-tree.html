@@ -18,16 +18,37 @@
             <p id="root-created-at">Created at: </p>
             <p id="root-updated-at">Last Updated: </p>
             </div>
-
-
             </div>
 
 </section>
+
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>Please select a branch type</p>
+      <select name="branch-type" id="branch-type">
+          <option value="and">And</option>
+          <option value="or">Or</option>
+          <option value="schema">Schema</option>
+      </select>
+      <div id="schema-form">
+          <label for="new-schema-path">Schema path</label>
+          <input type="text" name="new-schema-path" id="new-schema-path">
+          <label for="new-schema-operation">Operation</label>
+          <input type="text" name="new-schema-operation" id="new-schema-operation">
+      </div>
+      <input type="submit" value="Add branch" id="modal-submit">
+  </div>
+
+</div>
+
 {% endblock content %}
 
 {% block javascripts %}
 <script type="module" src="/static/assets/js/print-tree.js"></script>
 <script type="module" src="/static/assets/js/edit-tree.js"></script>
-<script type="module" src="/static/assets/js/drag-drop.js"></script>
+
 
 {% endblock javascripts %}

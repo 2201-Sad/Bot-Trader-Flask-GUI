@@ -3,24 +3,10 @@ import {printTree} from "./print-tree.js";
 
 export function editTree() {
     let editButtons = document.querySelectorAll(".edit-button");
-    let discriminatorSelects = document.querySelectorAll(".discriminator-select");
-    console.log(tree);
     let editedTree = tree
-
-//     //changing discriminator
-//     for (let i = 0; i < discriminatorSelects.length; i++) {
-//         let select = discriminatorSelects[i];
-//         let branchId = select.classList[1];
-//         select.addEventListener("change", function() {
-//             editedTree = changeDiscriminator(editedTree, editedTree["child"], branchId, select.value);
-//             console.log(editedTree);
-//         });
-//
-// }
 
     //deleting the branch
     let deleteButtons = document.querySelectorAll(".delete-button");
-    console.log(deleteButtons)
     for (let i = 0; i < deleteButtons.length; i++) {
         let button = deleteButtons[i];
         button.addEventListener("click", function () {
@@ -39,8 +25,16 @@ export function editTree() {
         })
     }
 
+    //adding a child
+    let addButtons = document.querySelectorAll(".add-button");
+    for (let i = 0; i < addButtons.length; i++) {
+        let button = addButtons[i];
+        button.addEventListener("click", function () {
+            modalForm(editedTree, editedTree["child"], this.classList[1]);
+        });
+    }
 
-    //when edit/save button is pressed
+    //when edit/save button is clicked
     for (let i = 0; i < editButtons.length; i++) {
         let button = editButtons[i];
 
@@ -69,21 +63,133 @@ export function editTree() {
 }
 
 
+function saveBranch(tree, root, branchID, editedInputs, editedDropdowns) {
+        let discriminatorInput = editedDropdowns[0];
+        let operationInput;
+        let pathInput;
+        for (let input of editedInputs) {
+            if (input.classList.contains("schema-operation-input")) {
+                operationInput = input;
+            } else if (input.classList.contains("schema-path-input")) {
+                pathInput = input;
+            }
+        }
+
+        if (root["children"].length > 0) {
+         if (root["id"] === branchID) {
+                root["discriminator"] = discriminatorInput.value;
+                return tree;
+         }
+        for (let child of root["children"]) {
+            if (child["id"] === branchID) {
+                if (child["discriminator"] === "schema") {
+                    child["operation"] = operationInput.value;
+                    child["discriminator"] = discriminatorInput.value;
+                    child["schema_path"] = pathInput.value;
+                } else {
+                    child["discriminator"] = discriminatorInput.value;
+                }
+                break;
+            } else {
+                saveBranch(tree, child, branchID, editedInputs, editedDropdowns)
+            }
+        }
+    }
+    return tree;
+    }
+
+
 function removeAndPrint(treeView, newTree) {
     //removing the old tree
-                    while (treeView.childNodes.length > 1) {
-                        for (let child of treeView.childNodes) {
-                            if (child.id !== "root") {
-                                treeView.removeChild(child);
-                        }
-                     }
-
-                    }
-
-                    // Printing a new tree
-                    printTree(newTree);
-                    editTree();
+    while (treeView.childNodes.length > 1) {
+       for (let child of treeView.childNodes) {
+         if (child.id !== "root") {
+              treeView.removeChild(child);
+          }
+        }
+    }
+    // Printing a new tree
+    printTree(newTree);
+    editTree();
 }
+
+
+function deleteBranch(tree, root, branchID) {
+    if (root["children"].length > 0) {
+         if (root["id"] === branchID) {
+         }
+        for (let child of root["children"]) {
+            if (child["id"] === branchID) {
+                let childIndex = root["children"].indexOf(child);
+                root["children"].splice(childIndex, 1);
+                let treeView = document.querySelector(".tree-view")
+                removeAndPrint(treeView, tree);
+                break;
+            } else {
+                deleteBranch(tree, child, branchID)
+            }
+        }}
+}
+
+function deleteTree(treeTitle) {
+    console.log(treeTitle + " is deleted")
+}
+
+function modalForm(tree, root, parentID) {
+    console.log("modal triggered")
+    let modal = document.getElementById("myModal");
+    let span = document.getElementsByClassName("close")[0];
+    modal.style.display = "block";
+    span.onclick = function() {
+    modal.style.display = "none";
+    }
+
+    let newBranchTypeInput = document.querySelector("#branch-type");
+    let modalSubmit = document.querySelector("#modal-submit");
+    newBranchTypeInput.addEventListener("change", function() {
+        if (this.value === "schema") {
+            document.querySelector("#schema-form").style.display = "block";
+        } else {
+            document.querySelector("#schema-form").style.display = "none"
+        }
+    })
+
+    modalSubmit.addEventListener("click", function () {
+        addBranch(tree, root, parentID, newBranchTypeInput.value, null, null)
+        modal.style.display = "none";
+    })
+
+
+}
+
+
+function addBranch(tree, root, parentID, branchType, newSchemaPath, newOperation) {
+    let treeView = document.querySelector(".tree-view")
+    let newBranch = {
+        "children": [],
+        "discriminant": null,
+        "discriminator": branchType,
+        //@TODO: automatically assigning ID to the new branch
+        "id": "765544332",
+        "operation": newOperation,
+        "schema_path": newSchemaPath,
+    }
+    console.log(parentID)
+
+    if (root["children"].length > 0) {
+        for (let child of root["children"]) {
+            if (child["id"] === parentID) {
+                console.log("parent found")
+                child["children"].push(newBranch);
+                removeAndPrint(treeView, tree);
+                break;
+            } else {
+                addBranch(tree, child, parentID, branchType, newSchemaPath, newOperation)
+            }
+        }}
+
+}
+
 
 function changeState(toState, button, inputs, dropdowns) {
     let states = [
@@ -123,91 +229,4 @@ function changeState(toState, button, inputs, dropdowns) {
     }
 }
 
-function saveBranch(tree, root, branchID, editedInputs, editedDropdowns) {
-        let discriminatorInput = editedDropdowns[0];
-        let operationInput;
-        let pathInput;
-        console.log(editedInputs)
-        for (let input of editedInputs) {
-            if (input.classList.contains("schema-operation-input")) {
-                operationInput = input;
-            } else if (input.classList.contains("schema-path-input")) {
-                pathInput = input;
-            }
-        }
 
-        if (root["children"].length > 0) {
-         if (root["id"] === branchID) {
-                root["discriminator"] = discriminatorInput.value;
-                return tree;
-         }
-        for (let child of root["children"]) {
-            if (child["id"] === branchID) {
-                console.log("branch found")
-                if (child["discriminator"] === "schema") {
-                    console.log("schema branch identified")
-                    child["operation"] = operationInput.value;
-                    console.log(child["operation"]);
-                    child["discriminator"] = discriminatorInput.value;
-                    console.log(child["discriminator"]);
-                    child["schema_path"] = pathInput.value;
-                    console.log(child["schema_path"]);
-                } else {
-                    child["discriminator"] = discriminatorInput.value;
-                }
-                break;
-            } else {
-                saveBranch(tree, child, branchID, editedInputs, editedDropdowns)
-            }
-        }
-    }
-    return tree;
-    }
-
-// function changeDiscriminator(tree, root, branchID, newDiscriminator) {
-//     if (root["children"].length > 0) {
-//          if (root["id"] === branchID) {
-//                 root["discriminator"] = newDiscriminator;
-//                 return tree;
-//          }
-//         for (let child of root["children"]) {
-//             if (child["id"] === branchID) {
-//                 if (child["discriminator" === "schema"]) {
-//                     child["operation"] = null;
-//                     child["discriminant"] = null;
-//                     child["schema_path"] = null;
-//                 }
-//
-//                 child["discriminator"] = newDiscriminator;
-//
-//                 break;
-//             } else {
-//                 changeDiscriminator(tree, child, branchID, newDiscriminator)
-//             }
-//         }
-//     }
-//     return tree;
-// }
-
-function deleteBranch(tree, root, branchID) {
-    if (root["children"].length > 0) {
-         if (root["id"] === branchID) {
-                root["discriminator"] = newDiscriminator;
-                return tree;
-         }
-        for (let child of root["children"]) {
-            if (child["id"] === branchID) {
-                let childIndex = root["children"].indexOf(child);
-                root["children"].splice(childIndex, 1);
-                let treeView = document.querySelector(".tree-view")
-                removeAndPrint(treeView, tree);
-                break;
-            } else {
-                deleteBranch(tree, child, branchID)
-            }
-        }}
-}
-
-function deleteTree(treeTitle) {
-    console.log(treeTitle + " is deleted")
-}
