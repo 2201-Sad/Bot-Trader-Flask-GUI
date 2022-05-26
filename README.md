@@ -79,10 +79,10 @@ $ # (Powershell) $env:FLASK_ENV = "development"
 $
 $ # Start the application (development mode)
 $ # --host=0.0.0.0 - expose the app on all network interfaces (default 127.0.0.1)
-$ # --port=5000    - specify the app port (default 5000)  
-$ flask run --host=0.0.0.0 --port=5000
+$ # --port=5001    - specify the app port (default 5000)  
+$ flask run --host=0.0.0.0 --port=5001
 $
-$ # Access the dashboard in browser: http://127.0.0.1:5000/
+$ # Access the dashboard in browser: http://127.0.0.1:5001/
 ```
 
 > Note: To use the app, please access the registration page and create a new user. After authentication, the app will unlock the private pages.
