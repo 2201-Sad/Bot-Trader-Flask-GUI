@@ -47,7 +47,7 @@ export class branchClass {
         discriminatorLabel.classList.add("branch-info-label");
         let discriminatorInput = document.createElement("select");
         discriminatorInput.classList.add("discriminator-select", this.id);
-        let discriminators = ["and", "or", "schema"];
+        let discriminators = ["AND", "OR", "NOT", "SCHEMA", "TIME_SERIES"];
 
         for (let i = 0; i < discriminators.length; i++) {
             let option = document.createElement("option");
@@ -58,10 +58,10 @@ export class branchClass {
             }
             discriminatorInput.appendChild(option);
 
-            //making sure that AND and OR branches don't have option to be changed to Schema
-            if (this.discriminator !== "schema" && i == 1) {
-                break;
-            }
+            // //making sure that AND and OR branches don't have option to be changed to Schema
+            // if (this.discriminator !== "schema" && i == 1) {
+            //     break;
+            // }
         }
         discriminatorInput.disabled = true;
         discriminatorContainer.append(discriminatorLabel);
@@ -70,7 +70,7 @@ export class branchClass {
 
 
         //Schema branch info
-        if (this.discriminator === "schema") {
+        if (this.discriminator === "SCHEMA" || this.discriminator === "TIME_SERIES") {
             let schemaContainer = document.createElement("div");
             schemaContainer.classList.add("schema-container");
 
@@ -85,25 +85,78 @@ export class branchClass {
             schemaPathInput.type = "text";
             schemaPathInput.value = this.schema_path;
             schemaPathInput.disabled = true;
-            schemaContainer.append(schemaPathLabel);
-            schemaContainer.append(schemaPathInput);
-            schemaContainer.append(schemaPathContainer);
+            schemaPathContainer.append(schemaPathLabel);
+            schemaPathContainer.append(schemaPathInput);
+            branchInfo.append(schemaPathContainer);
+
+            //discriminant
+            let discriminantContainer = document.createElement("div");
+            discriminantContainer.classList.add("branch-info-container");
+            let discriminantLabel = document.createElement("p")
+            discriminantLabel.append("Discriminant: ")
+            discriminantLabel.classList.add("branch-info-label");
+            let discriminantInput = document.createElement("input");
+            discriminantInput.classList.add("discriminant-input", this.id)
+            discriminantInput.type = "text";
+            discriminantInput.value = this.discriminant;
+            discriminantInput.disabled = true;
+            discriminantContainer.append(discriminantLabel);
+            discriminantContainer.append(discriminantInput);
+            branchInfo.append(discriminantContainer);
+
+            //operation - dropdown
+        let operationContainer = document.createElement("div");
+        operationContainer.classList.add("branch-info-container");
+        let operationLabel = document.createElement("p")
+        operationLabel.append("Operation: ")
+        operationLabel.classList.add("branch-info-label");
+        let operationInput = document.createElement("select");
+        operationInput.classList.add("operation-select", this.id);
+        let operations = ["NUMERIC_LESS_COMPARISON", "NUMERIC_LESS_OR_EQUAL_COMPARISON", "NUMERIC_EQUAL_COMPARISON", "NUMERIC_MORE_COMPARISON",
+                          "NUMERIC_MORE_OR_EQUAL_COMPARISON", "STRING_EQUAL_COMPARISON", "STRING_STARTS_WITH_COMPARISON", "STRING_CONTAINS_COMPARISON",
+                          "STRING_ENDS_WITH_COMPARISON", "TIME_SERIES_MIN_LESS_COMPARISON", "TIME_SERIES_MIN_LESS_OR_EQUAL_COMPARISON",
+                          "TIME_SERIES_MIN_EQUAL_COMPARISON", "TIME_SERIES_MIN_MORE_COMPARISON", "TIME_SERIES_MIN_MORE_OR_EQUAL_COMPARISON",
+                          "TIME_SERIES_AVERAGE_LESS_COMPARISON", "TIME_SERIES_AVERAGE_LESS_OR_EQUAL_COMPARISON", "TIME_SERIES_AVERAGE_EQUAL_COMPARISON",
+                          "TIME_SERIES_AVERAGE_MORE_COMPARISON", "TIME_SERIES_AVERAGE_MORE_OR_EQUAL_COMPARISON", "TIME_SERIES_MEAN_LESS_COMPARISON",
+                          "TIME_SERIES_MEAN_LESS_OR_EQUAL_COMPARISON", "TIME_SERIES_MEAN_EQUAL_COMPARISON",
+                          "TIME_SERIES_MEAN_MORE_COMPARISON", "TIME_SERIES_MEAN_MORE_OR_EQUAL_COMPARISON", "TIME_SERIES_MAX_LESS_COMPARISON",
+                          "TIME_SERIES_MAX_LESS_OR_EQUAL_COMPARISON", "TIME_SERIES_MAX_EQUAL_COMPARISON", "TIME_SERIES_MAX_MORE_COMPARISON",
+                          "TIME_SERIES_MAX_MORE_OR_EQUAL_COMPARISON"];
+
+        for (let i = 0; i < operations.length; i++) {
+            let option = document.createElement("option");
+            option.value = operations[i];
+            option.innerText = operations[i];
+            if (operations[i] === this.operation) {
+                option.selected = true;
+            }
+            operationInput.appendChild(option);
+
+            // //making sure that AND and OR branches don't have option to be changed to Schema
+            // if (this.discriminator !== "schema" && i == 1) {
+            //     break;
+            // }
+        }
+        operationInput.disabled = true;
+        operationContainer.append(operationLabel);
+        operationContainer.append(operationInput);
+        branchInfo.appendChild(operationContainer);
 
             //schema operation
-            let schemaOperationContainer = document.createElement("div");
-            schemaOperationContainer.classList.add("branch-info-container");
-            let schemaOperationLabel = document.createElement("p")
-            schemaOperationLabel.append("Operation: ")
-            schemaOperationLabel.classList.add("branch-info-label");
-            let schemaOperationInput = document.createElement("input");
-            schemaOperationInput.classList.add("schema-operation-input", this.id)
-            schemaOperationInput.type = "text";
-            schemaOperationInput.value = this.operation;
-            schemaOperationInput.disabled = true;
-            schemaContainer.append(schemaOperationContainer);
-            schemaContainer.append(schemaOperationLabel);
-            schemaContainer.append(schemaOperationInput);
-            branchInfo.append(schemaContainer);
+            // let schemaOperationContainer = document.createElement("div");
+            // schemaOperationContainer.classList.add("branch-info-container");
+            // let schemaOperationLabel = document.createElement("p")
+            // schemaOperationLabel.append("Operation: ")
+            // schemaOperationLabel.classList.add("branch-info-label");
+            // let schemaOperationInput = document.createElement("input");
+            // schemaOperationInput.classList.add("schema-operation-input", this.id)
+            // schemaOperationInput.type = "text";
+            // schemaOperationInput.value = this.operation;
+            // schemaOperationInput.disabled = true;
+            // schemaContainer.append(schemaOperationContainer);
+            // schemaContainer.append(schemaOperationLabel);
+            // schemaContainer.append(schemaOperationInput);
+            // branchInfo.append(schemaContainer);
         }
 
         //buttons to edit and delete a branch, and add new branch

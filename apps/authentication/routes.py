@@ -17,6 +17,8 @@ from apps.authentication.models import Users
 
 from apps.authentication.util import verify_pass
 
+import requests
+import json
 
 @blueprint.route('/')
 def route_default():
@@ -64,6 +66,7 @@ def register():
 
         username = request.form['username']
         email = request.form['email']
+        password = request.form['password']
 
         # Check usename exists
         user = Users.query.filter_by(username=username).first()

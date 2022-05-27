@@ -34,12 +34,13 @@ export function editTree() {
         });
     }
 
+
     //when edit/save button is clicked
     for (let i = 0; i < editButtons.length; i++) {
         let button = editButtons[i];
 
         button.addEventListener("click", function () {
-            let editedInputs = this.parentElement.parentElement.querySelectorAll(".schema-path-input, .schema-operation-input");
+            let editedInputs = this.parentElement.parentElement.querySelectorAll(".schema-path-input, .discriminant-input");
             let editedDropdown = this.parentElement.parentElement.querySelectorAll("select");
             //if editing is not in progress
             if (!this.classList.contains("save_button")) {
@@ -62,14 +63,14 @@ export function editTree() {
     }
 }
 
-
 function saveBranch(tree, root, branchID, editedInputs, editedDropdowns) {
         let discriminatorInput = editedDropdowns[0];
-        let operationInput;
+        let operationInput = editedDropdowns[1];
         let pathInput;
+        let discriminantInput;
         for (let input of editedInputs) {
-            if (input.classList.contains("schema-operation-input")) {
-                operationInput = input;
+            if (input.classList.contains("discriminant-input")) {
+                discriminantInput = input;
             } else if (input.classList.contains("schema-path-input")) {
                 pathInput = input;
             }
@@ -82,9 +83,10 @@ function saveBranch(tree, root, branchID, editedInputs, editedDropdowns) {
          }
         for (let child of root["children"]) {
             if (child["id"] === branchID) {
-                if (child["discriminator"] === "schema") {
+                if (child["discriminator"] === "SCHEMA" || child["discriminator"] === "TIME_SERIES") {
                     child["operation"] = operationInput.value;
                     child["discriminator"] = discriminatorInput.value;
+                    child["discriminant"] = discriminantInput.value;
                     child["schema_path"] = pathInput.value;
                 } else {
                     child["discriminator"] = discriminatorInput.value;
@@ -145,9 +147,12 @@ function modalForm(tree, root, parentID) {
     }
 
     let newBranchTypeInput = document.querySelector("#branch-type");
+    let newOperation = document.querySelector("#new-schema-operation");
+    let newDiscriminant = document.querySelector("#new-discriminant");
+    let newSchemaPath = document.querySelector("#new-schema-path");
     let modalSubmit = document.querySelector("#modal-submit");
     newBranchTypeInput.addEventListener("change", function() {
-        if (this.value === "schema") {
+        if (this.value === "SCHEMA" || this.value === "TIME_SERIES") {
             document.querySelector("#schema-form").style.display = "block";
         } else {
             document.querySelector("#schema-form").style.display = "none"
@@ -155,27 +160,23 @@ function modalForm(tree, root, parentID) {
     })
 
     modalSubmit.addEventListener("click", function () {
-        addBranch(tree, root, parentID, newBranchTypeInput.value, null, null)
+        addBranch(tree, root, parentID, newBranchTypeInput.value, newSchemaPath.value, newOperation.value, newDiscriminant.value )
         modal.style.display = "none";
     })
-
-
-
 }
 
 
-function addBranch(tree, root, parentID, branchType, newSchemaPath, newOperation) {
+function addBranch(tree, root, parentID, branchType, newSchemaPath, newOperation, newDiscriminant) {
     let treeView = document.querySelector(".tree-view")
     let newBranch = {
         "children": [],
-        "discriminant": null,
         "discriminator": branchType,
         //@TODO: automatically assigning ID to the new branch
         "id": "765544332",
         "operation": newOperation,
         "schema_path": newSchemaPath,
+        "discriminant": newDiscriminant
     }
-    console.log(parentID)
 
     if (root["children"].length > 0) {
         for (let child of root["children"]) {
@@ -185,7 +186,7 @@ function addBranch(tree, root, parentID, branchType, newSchemaPath, newOperation
                 removeAndPrint(treeView, tree);
                 break;
             } else {
-                addBranch(tree, child, parentID, branchType, newSchemaPath, newOperation)
+                addBranch(tree, child, parentID, branchType, newSchemaPath, newOperation, newDiscriminant)
             }
         }}
 
@@ -229,5 +230,3 @@ function changeState(toState, button, inputs, dropdowns) {
         button.classList.add("save_button");
     }
 }
-
-

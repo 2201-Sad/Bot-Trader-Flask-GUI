@@ -10,7 +10,7 @@ export let tree = {
                     {
                         "children": [],
                         "discriminant": "1",
-                        "discriminator": "schema",
+                        "discriminator": "SCHEMA",
                         "id": "82003c8d-f7b5-4a91-ad0e-73e1f124f45c",
                         "operation": "numeric_Equal_Comparison",
                         "schema_path": "value"
@@ -18,7 +18,7 @@ export let tree = {
                     {
                         "children": [],
                         "discriminant": "bar",
-                        "discriminator": "schema",
+                        "discriminator": "SCHEMA",
                         "id": "0b4a8bae-beb6-44a8-86fd-75c750e4b053",
                         "operation": "STRING_EQUAL_COMPARISON",
                         "schema_path": "foo"
@@ -33,7 +33,7 @@ export let tree = {
             {
                 "children": [],
                 "discriminant": "1",
-                "discriminator": "schema",
+                "discriminator": "SCHEMA",
                 "id": "fbac2ac2-68ea-4c3a-ada1-8f763b0b9fab",
                 "operation": "numeric_Equal_Comparison",
                 "schema_path": "bug.value"
