@@ -1,4 +1,5 @@
 import {branchClass} from "./branch-class.js";
+import {outcomeClass} from "./outcome-class.js";
 import {editTree} from "./edit-tree.js";
 
 
@@ -53,13 +54,13 @@ export let tree = {
         {
             "id": "3b859960-c74c-46e2-8c44-ade732741336",
             "operand": 1,
-            "operation": "open_position",
+            "operation": "OPEN_POSITION",
             "target": "BTC"
         },
         {
             "id": "2759b2f2-2dd0-4c9e-822d-12648571306d",
             "operand": 1,
-            "operation": "close_position",
+            "operation": "CLOSE_POSITION",
             "target": "ETH"
         }
     ],
@@ -103,6 +104,24 @@ export function printTree(tree) {
 
     root.printBranch(treeView);
     root.printChildren();
+
+// Printing Outcomes
+    console.log("printing outcomes");
+    let outcomes = tree["outcomes"];
+    console.log(outcomes)
+    let parentContainer = document.querySelector(".outcomes-view");
+
+    for (let counter = 0; counter < outcomes.length; counter ++) {
+            let temp = new outcomeClass(
+                outcomes[counter]["id"],
+                outcomes[counter]["operand"],
+                outcomes[counter]["operation"],
+                outcomes[counter]["target"]
+            );
+            console.log(temp)
+            temp.printOutcome(parentContainer);
+
+}
 
 //script to toggle accordion
     let acc = document.getElementsByClassName("accordion");

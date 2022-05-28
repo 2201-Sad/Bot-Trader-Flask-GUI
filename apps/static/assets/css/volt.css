@@ -864,6 +864,8 @@ h1, .h1 {
       font-size: 2.5rem; } }
 
 h2, .h2 {
+  text-align: center;
+  text-transform: uppercase;
   font-size: calc(1.325rem + 0.9vw); }
   @media (min-width: 1200px) {
     h2, .h2 {
@@ -19149,13 +19151,21 @@ h2 span {
 
 .tree-view {
   background-color: ghostwhite;
-  width: 100%;
+  width: 70%;
   padding: 0.5rem;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
 }
 
+.outcomes-view {
+  width: 30%;
+}
+
+.outcomes-view > div {
+  margin-left: 15px;
+  margin-bottom: 10px;
+}
 #tree-elements {
   background-color: ghostwhite;
   width: 30%;
@@ -19209,7 +19219,6 @@ h2 span {
 .mouse-over {
   background-color: red;
 }
-
 
 
 /* Style the buttons that are used to open and close the accordion panel */
