@@ -25,6 +25,21 @@ export function editTree() {
         })
     }
 
+
+    //deleting the outcome
+    let deleteOutcomeButtons = document.querySelectorAll(".delete-outcome-button");
+    for (let i = 0; i < deleteOutcomeButtons.length; i++) {
+        let button = deleteOutcomeButtons[i];
+        button.addEventListener("click", function () {
+            let outcomeID = button.classList[1];
+            console.log(outcomeID)
+                let deleteOutcomeConfirm = confirm("Delete the outcome?");
+                if (deleteOutcomeConfirm === true) {
+                    deleteOutcome(editedTree, editedTree["outcomes"], outcomeID);
+                }
+        })
+    }
+
     //adding a child
     let addButtons = document.querySelectorAll(".add-button");
     for (let i = 0; i < addButtons.length; i++) {
@@ -140,6 +155,19 @@ function deleteBranch(tree, root, branchID) {
             }
         }}
 }
+
+function deleteOutcome(tree, outcomes, id) {
+    for (let outcome of outcomes) {
+            if (outcome["id"] === id) {
+                let outcomeIndex = outcomes.indexOf(outcome);
+                outcomes.splice(outcomeIndex, 1);
+                let treeView = document.querySelector(".tree-view")
+                removeAndPrint(treeView, tree);
+                break;
+            }
+        }
+}
+
 
 function deleteTree(treeTitle) {
     console.log(treeTitle + " is deleted")

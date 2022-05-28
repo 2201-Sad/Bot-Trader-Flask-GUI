@@ -26,7 +26,7 @@ export class outcomeClass {
         outcomeOperationLabel.append("Operation: ")
         outcomeOperationLabel.classList.add("outcome-info-label");
         let outcomeOperationInput = document.createElement("select");
-        outcomeOperationInput.classList.add("outcome-operation-select");
+        outcomeOperationInput.classList.add("outcome-operation-select", this.id);
         let outcomeOperations = ["OPEN_POSITION", "CLOSE_POSITION"];
 
         for (let i = 0; i < outcomeOperations.length; i++) {
@@ -38,10 +38,6 @@ export class outcomeClass {
             }
             outcomeOperationInput.appendChild(option);
 
-            // //making sure that AND and OR branches don't have option to be changed to Schema
-            // if (this.discriminator !== "schema" && i == 1) {
-            //     break;
-            // }
         }
         outcomeOperationInput.disabled = true;
         outcomeOperationContainer.append(outcomeOperationLabel);
@@ -56,7 +52,7 @@ export class outcomeClass {
         outcomeOperandLabel.append("Operand: ")
         outcomeOperandLabel.classList.add("outcome-operand-label");
         let outcomeOperandInput = document.createElement("input");
-        outcomeOperandInput.classList.add("outcome-operand-input")
+        outcomeOperandInput.classList.add("outcome-operand-input", this.id)
         outcomeOperandInput.type = "text";
         outcomeOperandInput.value = this.operand;
         outcomeOperandInput.disabled = true;
@@ -71,7 +67,7 @@ export class outcomeClass {
         outcomeTargetLabel.append("Target: ")
         outcomeTargetLabel.classList.add("outcome-target-label");
         let outcomeTargetInput = document.createElement("input");
-        outcomeTargetInput.classList.add("outcome-target-input")
+        outcomeTargetInput.classList.add("outcome-target-input", this.id)
         outcomeTargetInput.type = "text";
         outcomeTargetInput.value = this.target;
         outcomeTargetInput.disabled = true;
@@ -84,7 +80,7 @@ export class outcomeClass {
         editContainer.classList.add("edit-container");
         let deleteButton = document.createElement("p");
         deleteButton.innerText = "Delete outcome";
-        deleteButton.classList.add("delete-outcome-button");
+        deleteButton.classList.add("delete-outcome-button", this.id);
         let addButton = document.createElement("p");
         addButton.innerText = "Add outcome";
         addButton.classList.add("add-outcome-button");
