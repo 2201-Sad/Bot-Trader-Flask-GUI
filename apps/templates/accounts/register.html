@@ -17,18 +17,16 @@
                     <div class="bg-white shadow border-0 rounded border-light p-4 p-lg-5 w-100 fmxw-500">
                         <div class="text-center text-md-center mb-4 mt-md-0">
                             <h1 class="mb-0">
-                                Sign Up Sample
+                                <b>SIGN UP</b>
                             </h1>
                             <br>
                             <p>
-                            Add your details!!!!
+                            Add your details
                             </p>
                         </div>
                         <form method="POST" action="" class="mt-4">
 
                             {{ form.hidden_tag() }}
-
-                            #username
 
                             <div class="form-group mb-4">
                                 <label for="email">
@@ -47,7 +45,7 @@
                                 </label>
                                 <div class="input-group">
                                     <span class="input-group-text" id="basic-addon1">
-                                        <span class="fas fa-user-envelope"></span></span>
+                                        <span class="fas fa-envelope"></span></span>
                                     <input class="form-control" id="create_email" name="email" placeholder="Email" type="email" value>
                                 </div>
                             </div>
@@ -58,7 +56,7 @@
                                 </label>
                                 <div class="input-group">
                                     <span class="input-group-text" id="basic-addon2">
-                                        <span class="fas fa-user-unlock-alt"></span></span>
+                                        <span class="fas fa-unlock-alt"></span></span>
                                     <input class="form-control" id="create-password" name="password" placeholder="Password" type="password" value>
                                 </div>
                             </div>
@@ -73,7 +71,7 @@
                             </div>
 
                             <div class="d-grid">
-                                <button type="submit" name="register" class="btn btn-blue-800">
+                                <button type="submit" name="register" class="btn btn-gray-800">
                                     Sign Up
                                 </button>
                             </div>
@@ -82,7 +80,7 @@
                         <div class="d-flex justify-content-center align-items-center mt-4">
                             <span class="fw-normal">
                                 Already have an Account?
-                                <a href="{{ url_for('authentication_blueprint.login') }}" class="fw-bold">Sign IN</a>
+                                <a href="{{ url_for('authentication_blueprint.login') }}" class="fw-bold">SIGN IN</a>
                             </span>
                         </div>
                     </div>
