@@ -102,6 +102,7 @@ function saveBranch(tree, root, branchID, editedInputs, editedDropdowns) {
 
 
 function removeAndPrint(treeView, newTree) {
+    let outcomesView = document.querySelector(".outcomes-view")
     //removing the old tree
     while (treeView.childNodes.length > 1) {
        for (let child of treeView.childNodes) {
@@ -110,6 +111,13 @@ function removeAndPrint(treeView, newTree) {
           }
         }
     }
+
+    while (outcomesView.childNodes.length > 0) {
+       for (let outcome of outcomesView.childNodes) {
+          outcomesView.removeChild(outcome);
+          }
+        }
+
     // Printing a new tree
     printTree(newTree);
     editTree();
