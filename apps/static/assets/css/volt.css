@@ -19325,3 +19325,16 @@ h2 span {
   padding: 10px;
   margin: 10px;
 }
+
+#add-outcome {
+  padding: 10px 15px;
+  display: block;
+  margin: 15px auto;
+  background-color: #00c4a7;
+  border: none;
+  text-transform: uppercase;
+}
+
+#add-outcome:hover {
+  background-color: #0ea271;
+}

@@ -81,11 +81,7 @@ export class outcomeClass {
         let deleteButton = document.createElement("p");
         deleteButton.innerText = "Delete outcome";
         deleteButton.classList.add("delete-outcome-button", this.id);
-        let addButton = document.createElement("p");
-        addButton.innerText = "Add outcome";
-        addButton.classList.add("add-outcome-button");
         editContainer.append(deleteButton);
-        editContainer.append(addButton);
         outcomeInfo.append(editContainer);
         outcomeInfo.classList.add("panel");
         outcomeDataContainer.append(outcomeInfo);

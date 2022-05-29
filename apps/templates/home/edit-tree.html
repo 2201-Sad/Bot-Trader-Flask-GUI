@@ -89,10 +89,27 @@
 </div>
 
 
+<div id="outcome-modal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content" id="outcome-modal-content">
+    <span class="close">&times;</span>
+    <p>Operation</p>
+      <select name="branch-type" id="new-outcome-operation">
+          <option value="OPEN_POSITION">OPEN_POSITION</option>
+          <option value="CLOSE_POSITION">CLOSE_POSITION</option>
+      </select>
+      <label for="new-outcome-operand">Outcome Operand</label>
+      <input type="text" name="new-outcome-operand" id="new-outcome-operand">
+      <label for="new-outcome-target">Target</label>
+      <input type="text" name="new-outcome-target" id="new-outcome-target">
+      <input type="submit" value="Add outcome" id="outcome-submit">
+      </div>
+  </div>
+
 {% endblock content %}
 
 {% block javascripts %}
-<script type="module" src="/static/assets/js/api-adapter.js"></script>
 <script type="module" src="/static/assets/js/print-tree.js"></script>
 <script type="module" src="/static/assets/js/edit-tree.js"></script>
 

@@ -50,6 +50,32 @@ export function editTree() {
     }
 
 
+    //adding outcome
+    let addOutcomeButton = document.querySelector("#add-outcome");
+    let outcomeModal = document.querySelector("#outcome-modal")
+    let modalContent = document.querySelector("#outcome-modal-content")
+    addOutcomeButton.addEventListener("click", function() {
+        outcomeModal.style.display = "block";
+    })
+
+    let outcomeSubmit = document.querySelector("#outcome-submit");
+    outcomeSubmit.addEventListener("click", function() {
+        let newOutcomeOperation = document.querySelector("#new-outcome-operation").value
+        let newOutcomeOperand = document.querySelector("#new-outcome-operand").value
+        let newOutcomeTarget = document.querySelector("#new-outcome-target").value
+        let newOutcome = {
+            "id": Math.floor(Math.random() * 10000000000).toString(),
+            "operation": newOutcomeOperation,
+            "operand": newOutcomeOperand,
+            "target": newOutcomeTarget
+        }
+        editedTree["outcomes"].push(newOutcome);
+        outcomeModal.style.display = "none";
+        removeAndPrint(document.querySelector(".tree-view"), editedTree)
+        modalContent.reset();
+
+    })
+
     //when edit/save button is clicked
     for (let i = 0; i < editButtons.length; i++) {
         let button = editButtons[i];
@@ -208,7 +234,7 @@ function addBranch(tree, root, parentID, branchType, newSchemaPath, newOperation
         "children": [],
         "discriminator": branchType,
         //@TODO: automatically assigning ID to the new branch
-        "id": "765544332",
+        "id": Math.floor(Math.random() * 10000000000),
         "operation": newOperation,
         "schema_path": newSchemaPath,
         "discriminant": newDiscriminant
