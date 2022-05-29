@@ -105,6 +105,7 @@ export function printTree(tree) {
     root.printBranch(treeView);
     root.printChildren();
 
+
 // Printing Outcomes
     console.log("printing outcomes");
     let outcomes = tree["outcomes"];
