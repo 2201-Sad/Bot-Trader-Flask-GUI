@@ -23,6 +23,7 @@
 
     <div class="outcomes-container">
         <h2>Outcomes</h2>
+        <button id="add-outcome">Add outcome</button>
         <div class="outcomes-view">
 
         </div>
@@ -88,11 +89,10 @@
 </div>
 
 
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-
 {% endblock content %}
 
 {% block javascripts %}
+<script type="module" src="/static/assets/js/api-adapter.js"></script>
 <script type="module" src="/static/assets/js/print-tree.js"></script>
 <script type="module" src="/static/assets/js/edit-tree.js"></script>
 

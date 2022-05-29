@@ -1,6 +1,6 @@
 //authorization
-const login = "test";
-const password = "test";
+const login = "username";
+const password = "password";
 const basicAuthToken =  btoa(`${login}:${password}`)
 
 
@@ -10,7 +10,6 @@ export const createNewUser = async (newlogin, newpassword) => {
             headers: {
                 'Content-Type': 'application/json',
                 'accept': 'application/json'
-                // 'Authorization': 'Basic' + btoa(`${login}:${password}`)
             },
             method: "POST",
             body: JSON.stringify({
@@ -27,7 +26,8 @@ export const createNewUser = async (newlogin, newpassword) => {
 
 
 //fetching a list of trees
-export const apiAdapter = async () => {
+export const fetchTrees = async () => {
+    console.log(basicAuthToken)
     try {
         const response = await fetch("http://127.0.0.1:5000/api/trade_tree/user", {
             headers: {
