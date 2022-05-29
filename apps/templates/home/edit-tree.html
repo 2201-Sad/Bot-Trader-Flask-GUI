@@ -1,0 +1,117 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Dashboard {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
+
+{% endblock stylesheets %}
+
+{% block content %}
+
+<section class="tree-container d-flex flex-row justify-content-between w-100 p-3">
+        <div class="tree-view">
+        <div id="root">
+            <p id="root-title">Title: </p>
+            <p id="root-is-active">Status: </p>
+            <p id="root-created-at">Created at: </p>
+            <p id="root-updated-at">Last Updated: </p>
+            </div>
+            </div>
+
+    <div class="outcomes-container">
+        <h2>Outcomes</h2>
+        <button id="add-outcome">Add outcome</button>
+        <div class="outcomes-view">
+
+        </div>
+    </div>
+
+
+</section>
+
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>Please select a branch type</p>
+      <select name="branch-type" id="branch-type">
+          <option value="AND">AND</option>
+          <option value="OR">OR</option>
+          <option value="NOT">NOT</option>
+          <option value="SCHEMA">SCHEMA</option>
+          <option value="TIME_SERIES">TIME_SERIES</option>
+      </select>
+      <div id="schema-form">
+          <label for="new-schema-path">Schema path</label>
+          <input type="text" name="new-schema-path" id="new-schema-path">
+          <label for="new-discriminant">Discriminant</label>
+          <input type="text" name="new-discriminant" id="new-discriminant">
+          <p>Operation:</p>
+          <select name="new-schema-operation" id="new-schema-operation">
+            <option value="NUMERIC_LESS_COMPARISON">NUMERIC_LESS_COMPARISON</option>
+            <option value="NUMERIC_LESS_OR_EQUAL_COMPARISON">NUMERIC_LESS_OR_EQUAL_COMPARISON</option>
+            <option value="NUMERIC_EQUAL_COMPARISON">NUMERIC_EQUAL_COMPARISON</option>
+            <option value="NUMERIC_MORE_COMPARISON">NUMERIC_MORE_COMPARISON</option>
+            <option value="NUMERIC_MORE_OR_EQUAL_COMPARISON">NUMERIC_MORE_OR_EQUAL_COMPARISON</option>
+            <option value="STRING_EQUAL_COMPARISON">STRING_EQUAL_COMPARISON</option>
+            <option value="STRING_STARTS_WITH_COMPARISON">STRING_STARTS_WITH_COMPARISON</option>
+            <option value="STRING_CONTAINS_COMPARISON">STRING_CONTAINS_COMPARISON</option>
+            <option value="STRING_ENDS_WITH_COMPARISON">STRING_ENDS_WITH_COMPARISON</option>
+            <option value="TIME_SERIES_MIN_LESS_COMPARISON">TIME_SERIES_MIN_LESS_COMPARISON</option>
+            <option value="TIME_SERIES_MIN_LESS_OR_EQUAL_COMPARISON">TIME_SERIES_MIN_LESS_OR_EQUAL_COMPARISON</option>
+            <option value="TIME_SERIES_MIN_EQUAL_COMPARISON">TIME_SERIES_MIN_EQUAL_COMPARISON</option>
+            <option value="TIME_SERIES_MIN_MORE_COMPARISON">TIME_SERIES_MIN_MORE_COMPARISON</option>
+            <option value="TIME_SERIES_MIN_MORE_OR_EQUAL_COMPARISON">TIME_SERIES_MIN_MORE_OR_EQUAL_COMPARISON</option>
+            <option value="TIME_SERIES_AVERAGE_LESS_COMPARISON">TIME_SERIES_AVERAGE_LESS_COMPARISON</option>
+            <option value="TIME_SERIES_AVERAGE_LESS_OR_EQUAL_COMPARISON">TIME_SERIES_AVERAGE_LESS_OR_EQUAL_COMPARISON</option>
+            <option value="TIME_SERIES_AVERAGE_EQUAL_COMPARISON">TIME_SERIES_AVERAGE_EQUAL_COMPARISON</option>
+            <option value="TIME_SERIES_AVERAGE_MORE_COMPARISON">TIME_SERIES_AVERAGE_MORE_COMPARISON</option>
+            <option value="TIME_SERIES_AVERAGE_MORE_OR_EQUAL_COMPARISON">TIME_SERIES_AVERAGE_MORE_OR_EQUAL_COMPARISON</option>
+            <option value="TIME_SERIES_MEAN_LESS_COMPARISON">TIME_SERIES_MEAN_LESS_COMPARISON</option>
+            <option value="TIME_SERIES_MEAN_LESS_OR_EQUAL_COMPARISON">TIME_SERIES_MEAN_LESS_OR_EQUAL_COMPARISON</option>
+            <option value="TIME_SERIES_MEAN_EQUAL_COMPARISON">TIME_SERIES_MEAN_EQUAL_COMPARISON</option>
+            <option value="TIME_SERIES_MEAN_MORE_COMPARISON">TIME_SERIES_MEAN_MORE_COMPARISON</option>
+            <option value="TIME_SERIES_MEAN_MORE_OR_EQUAL_COMPARISON">TIME_SERIES_MEAN_MORE_OR_EQUAL_COMPARISON</option>
+            <option value="TIME_SERIES_MAX_LESS_COMPARISON">TIME_SERIES_MAX_LESS_COMPARISON</option>
+            <option value="TIME_SERIES_MAX_LESS_OR_EQUAL_COMPARISON">TIME_SERIES_MAX_LESS_OR_EQUAL_COMPARISON</option>
+            <option value="TIME_SERIES_MAX_EQUAL_COMPARISON">TIME_SERIES_MAX_EQUAL_COMPARISON</option>
+            <option value="TIME_SERIES_MAX_MORE_COMPARISON">TIME_SERIES_MAX_MORE_COMPARISON</option>
+            <option value="TIME_SERIES_MAX_MORE_OR_EQUAL_COMPARISON">TIME_SERIES_MAX_MORE_OR_EQUAL_COMPARISON</option>
+          </select>
+      </div>
+      <input type="submit" value="Add branch" id="modal-submit">
+  </div>
+
+</div>
+
+
+<div id="outcome-modal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content" id="outcome-modal-content">
+    <span class="close">&times;</span>
+    <p>Operation</p>
+      <select name="branch-type" id="new-outcome-operation">
+          <option value="OPEN_POSITION">OPEN_POSITION</option>
+          <option value="CLOSE_POSITION">CLOSE_POSITION</option>
+      </select>
+      <label for="new-outcome-operand">Outcome Operand</label>
+      <input type="text" name="new-outcome-operand" id="new-outcome-operand">
+      <label for="new-outcome-target">Target</label>
+      <input type="text" name="new-outcome-target" id="new-outcome-target">
+      <input type="submit" value="Add outcome" id="outcome-submit">
+      </div>
+  </div>
+
+{% endblock content %}
+
+{% block javascripts %}
+<script type="module" src="/static/assets/js/print-tree.js"></script>
+<script type="module" src="/static/assets/js/edit-tree.js"></script>
+
+
+{% endblock javascripts %}
